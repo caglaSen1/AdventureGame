@@ -4,6 +4,7 @@ public abstract class Characters {
     private int damage;
     private int health;
     private int money;
+    private Inventory inventory;
 
     public Characters(int id, String charName, int damage, int health, int money) {
         setId(id);
@@ -11,6 +12,9 @@ public abstract class Characters {
         setDamage(damage);
         setHealth(health);
         setMoney(money);
+
+        //WHEN CHARACTER PICKED, GET AN INVENTORY
+        setInventory(new Inventory());
     }
 
     public int getId() {
@@ -30,7 +34,7 @@ public abstract class Characters {
     }
 
     public int getDamage() {
-        return damage;
+        return damage + inventory.getWeapon().getDamage();
     }
 
     public void setDamage(int damage) {
@@ -51,5 +55,13 @@ public abstract class Characters {
 
     public void setMoney(int money) {
         this.money = money;
+    }
+
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(Inventory inventory) {
+        this.inventory = inventory;
     }
 }
