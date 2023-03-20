@@ -69,6 +69,9 @@ public class Player {
             System.out.println("-----------------------------------------------------------------------------------");
             System.out.println("1 - Safe House - There are no enemies in Safe House and you can restored your health.");
             System.out.println("2 - Store - You can buy a weapon or armor in Store.");
+            System.out.println("3 - Cave - You can find food in the cave. But be careful there are zombies.");
+            System.out.println("4 - Forest - You can find wood in the forest. But be careful there are vampires.");
+            System.out.println("5 - River - You can find water in the river. But be careful there are bears.");
             System.out.println("0 - Quit the game");
             System.out.println("-----------------------------------------------------------------------------------");
             System.out.println("Please pick a location to move: ");
@@ -81,8 +84,17 @@ public class Player {
                 case "2":
                     location = new Store(this);
                     break;
+                case "3":
+                    location = new Cave(this);
+                    break;
+                case "4":
+                    location = new Forest(this);
+                    break;
+                case "5":
+                    location = new River(this);
+                    break;
                 default:
-                    location = new SafeHouse(this);
+                    System.out.println("You typed an invalid value! Please try again: ");
                     break;
             }
             noLocPickedYet = false;
