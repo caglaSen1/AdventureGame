@@ -69,11 +69,15 @@ public class Player {
             System.out.println("-----------------------------------------------------------------------------------");
             System.out.println("1 - Safe House - There are no enemies in Safe House and you can restored your health.");
             System.out.println("2 - Store - You can buy a weapon or armor in Store.");
+            System.out.println("0 - Quit the game");
             System.out.println("-----------------------------------------------------------------------------------");
             System.out.println("Please pick a location to move: ");
 
             // If player pressed different nums then 2.. it goes to the Safe House!
             switch (scan.next()) {
+                case "0":
+                    location = null;
+                    break;
                 case "2":
                     location = new Store(this);
                     break;
@@ -81,13 +85,17 @@ public class Player {
                     location = new SafeHouse(this);
                     break;
             }
-
             noLocPickedYet = false;
+            if(location == null){
+                System.out.println("See you later, adventurer. The adventure is not over...");
+                break;
+            }
         }
 
-        //If location.onLocation = false, it means that player died.
-        System.out.println("GAME OVER!!!");
-
+        if(location != null){
+            //If location.onLocation = false, it means that player died.
+            System.out.println("GAME OVER!!!");
+        }
     }
 
     public void printInfo(){

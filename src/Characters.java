@@ -38,6 +38,7 @@ public abstract class Characters {
         this.charName = charName;
     }
 
+    //TOTAL DAMAGE POWER OF PLAYER
     public int getDamage() {
         return damage + inventory.getWeapon().getDamage();
     }
@@ -62,8 +63,9 @@ public abstract class Characters {
         this.money = money;
     }
 
+    //TOTAL BLOCKING POWER OF PLAYER
     public int getBlocking() {
-        return blocking;
+        return blocking + inventory.getArmor().getBlocking();
     }
 
     public void setBlocking(int blocking) {

@@ -81,13 +81,15 @@ public class Store extends NormalLocation{
         }*/
 
         //Player can't pick an armor that he/she already had.
-        if(pickedWeaponID == (this.getPlayer().getCharacter().getInventory().getWeapon().getId())){
+        while(pickedWeaponID == (this.getPlayer().getCharacter().getInventory().getWeapon().getId())){
             System.out.println("You already have a " + this.getPlayer().getCharacter().getInventory().getWeapon().getName());
             pickingWeapon();
         }
-        //WEAPON PICKED
-        //BUYING WEAPON
-        buyWeapon();
+            //WEAPON PICKED
+            //BUYING WEAPON
+            buyWeapon();
+
+
 
     }
 
@@ -143,13 +145,14 @@ public class Store extends NormalLocation{
         }*/
 
         //Player can't pick an armor that he/she already had.
-        if(pickedArmorID == (this.getPlayer().getCharacter().getInventory().getArmor().getId())){
+        while(pickedArmorID == (this.getPlayer().getCharacter().getInventory().getArmor().getId())){
             System.out.println("You already have an " + this.getPlayer().getCharacter().getInventory().getArmor().getName());
             pickingArmor();
         }
-        //ARMOR PICKED
-        //BUYING ARMOR
-        buyArmor();
+            //ARMOR PICKED
+            //BUYING ARMOR
+            buyArmor();
+
     }
 
     //BUYING ARMOR
