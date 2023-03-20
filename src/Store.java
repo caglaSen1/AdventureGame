@@ -1,14 +1,25 @@
 public class Store extends NormalLocation{
-    public String pickedToolID;
-    public String pickedWeaponID;
+    //public String pickedToolID;
+    public int pickedToolID;
+    public int pickedWeaponID;
+    public int pickedArmorID;
+
+    //Player's weapon
+    public Weapon weapon = this.getPlayer().getCharacter().getInventory().getWeapon();
+    //Player's armor
+    public Armor armor = this.getPlayer().getCharacter().getInventory().getArmor();
+
+    //Picked weapon from the store
     public Weapon pickedWeapon;
-
-
-    public Store(Player player) {
-        super(player, "Store");
-    }
+    //Picked armor from the store
+    public Armor pickedArmor;
 
     //PLAYER IS IN THE STORE
+    public Store(Player player) {
+        super(player, "Store");
+        //this.getPlayer().getCharacter().getInventory();
+    }
+
     @Override
     public boolean onLocation(){
         System.out.println("************ Welcome to the Store ************");
@@ -18,91 +29,96 @@ public class Store extends NormalLocation{
         System.out.println("***********************************************");
 
         System.out.println("Your choice: ");
-        pickedToolID = scan.next();
+        pickedToolID = scan.nextInt();
 
-        while(pickedToolID == "1" || pickedToolID == "2" || pickedToolID =="3"){
+        //Checking if player typed an invalid value
+        /*while(!(pickedToolID == "1" || pickedToolID == "2" || pickedToolID == "3")){
             System.out.println("You typed an invalid value! Please try again: ");
             pickedToolID = scan.next();
-        }
+            System.out.println("picked tool id:" + pickedToolID);
+        }*/
+
 
         switch (pickedToolID){
-            case "1" :
-                printWeapon();
+            case 1 :
+                //PRINTING WEAPONS
+                weapon.printItemsInfo();
+
+                //PICK A WEAPON
+                pickingWeapon();
                 break;
-            case "2" :
-                pickArmor();
+            case 2 :
+                //PRINTING ARMORS
+                armor.printItemsInfo();
+
+                //PICK AN ARMOR
+                pickingArmor();
+
                 break;
-            case "3" :
-                 return true;
-            default:
+            case 3 :
+                System.out.println("Come again :)");
+                break;
+
         }
         return true;
     }
 
-    public void printPlayerMoney(){
-        System.out.println("Your money is: " + this.getPlayer().getCharacter().getMoney());
-    }
-
-    //PRINTING WEAPONS
-    public void printWeapon(){
-        System.out.println("************ Weapons ************");
-        printPlayerMoney();
-        //weapons() is a static method
-        for(Weapon weapon : Weapon.weapons()){
-            System.out.println(weapon.getId() + "-" + weapon.getName() + " [Price: " + weapon.getPrice()
-                    + " | " + "Damage: " + weapon.getDamage() + "]");
-        }
-        System.out.println("*********************************");
-
-        //PICKING WEAPON
-        pickWeapon();
-    }
 
     //PICKING WEAPON
-    public void pickWeapon(){
+    public void pickingWeapon(){
         System.out.println("Chose a weapon: ");
-        pickedWeaponID = scan.next();
-        while (!pickedWeaponID.equals("1") && !pickedWeaponID.equals("2") && !pickedWeaponID.equals("3")){
-            System.out.println("You typed an invalid value! Please try again: ");
-            pickedWeaponID = scan.next();
+        pickedWeaponID = scan.nextInt();
+
+        //If typed 4 exit
+        if(pickedWeaponID == 4){
+            onLocation();
         }
 
+        /*//Checking if player typed an invalid value
+        while (pickedToolID != 1 && pickedToolID != 2 && pickedToolID != 3){
+            System.out.println("You typed an invalid value! Please try again: ");
+            pickedToolID = scan.nextInt();
+        }*/
 
-        if(Integer.parseInt(pickedWeaponID) == (this.getPlayer().getCharacter().getInventory().getWeapon().getId())){
+        //Player can't pick an armor that he/she already had.
+        if(pickedWeaponID == (this.getPlayer().getCharacter().getInventory().getWeapon().getId())){
             System.out.println("You already have a " + this.getPlayer().getCharacter().getInventory().getWeapon().getName());
-            pickWeapon();
+            pickingWeapon();
         }
         //WEAPON PICKED
-
         //BUYING WEAPON
         buyWeapon();
+
     }
 
     //BUYING WEAPON
     public void buyWeapon(){
-        pickedWeapon = Weapon.getWeaponByID(Integer.parseInt(pickedWeaponID));
+        pickedWeapon = (Weapon) weapon.getItemByID(pickedWeaponID, weapon.weapons());
+
+
         if(pickedWeapon != null){
 
             //MONEY CHECK
             if(pickedWeapon.getPrice() > this.getPlayer().getCharacter().getMoney()){
                 System.out.println("Sorry, you haven't got enough money!!");
+                pickingWeapon();
             }else{
                 //WEAPON BOUGHT
-                //System.out.println("You bought a " + pickedWeapon.getName());
+
+                //Price deducted from money
                 int newMoney = this.getPlayer().getCharacter().getMoney() - pickedWeapon.getPrice();
                 this.getPlayer().getCharacter().setMoney(newMoney);
-                //System.out.println("You have " + newMoney + " left");
 
                 //PLAYER'S WEAPON INVENTORY CHANGED MESSAGE
                 System.out.println("Previous weapon " + this.getPlayer().getCharacter().getInventory().getWeapon().getName()
                 + ", changed with " + pickedWeapon.getName());
 
-                //PICKED WEAPON ADDED TO THE INVENTORY OF PLAYER
+                //PICKED WEAPON ADDED TO THE INVENTORY OF THE PLAYER
                 this.getPlayer().getCharacter().getInventory().setWeapon(pickedWeapon);
 
                 //INCREASE DAMAGE MESSAGE
                 int newDamage = (this.getPlayer().getCharacter().getDamage() - pickedWeapon.getDamage());
-                System.out.println("Your damage increased by " + newDamage);
+                System.out.println("Your damage changed by " + Math.abs(newDamage));
             }
 
         }
@@ -110,10 +126,62 @@ public class Store extends NormalLocation{
 
 
     //PICKING AN ARMOR
-    public void pickArmor(){
-        System.out.println("************ Armors ************");
+    public void pickingArmor(){
+        System.out.println("Chose an armor: ");
+        pickedArmorID = scan.nextInt();
+
+        //If typed 4 exit
+        if(pickedArmorID== 4){
+            onLocation();
+
+        }
+
+        //Checking if player typed an invalid value
+        /*while (!pickedToolID.equals("1") && !pickedToolID.equals("2") && !pickedToolID.equals("3")){
+            System.out.println("You typed an invalid value! Please try again: ");
+            pickedToolID = scan.next();
+        }*/
+
+        //Player can't pick an armor that he/she already had.
+        if(pickedArmorID == (this.getPlayer().getCharacter().getInventory().getArmor().getId())){
+            System.out.println("You already have an " + this.getPlayer().getCharacter().getInventory().getArmor().getName());
+            pickingArmor();
+        }
+        //ARMOR PICKED
+        //BUYING ARMOR
+        buyArmor();
     }
 
+    //BUYING ARMOR
+    public void buyArmor(){
+        pickedArmor = (Armor) armor.getItemByID(pickedArmorID, armor.armors());
 
+        if(pickedArmor != null){
+
+            //MONEY CHECK
+            if(pickedArmor.getPrice() > this.getPlayer().getCharacter().getMoney()){
+                System.out.println("Sorry, you haven't got enough money!!");
+                pickingArmor();
+            }else{
+                //ARMOR BOUGHT
+
+                //Price deducted from money
+                int newMoney = this.getPlayer().getCharacter().getMoney() - pickedArmor.getPrice();
+                this.getPlayer().getCharacter().setMoney(newMoney);
+
+                //PLAYER'S WEAPON INVENTORY CHANGED MESSAGE
+                System.out.println("Previous armor " + this.getPlayer().getCharacter().getInventory().getArmor().getName()
+                        + ", changed with " + pickedArmor.getName());
+
+                //PICKED ARMOR ADDED TO THE INVENTORY OF THE PLAYER
+                this.getPlayer().getCharacter().getInventory().setArmor(pickedArmor);
+
+                //INCREASE DAMAGE MESSAGE
+                int newBlocking = (this.getPlayer().getCharacter().getBlocking() - pickedArmor.getBlocking());
+                System.out.println("Your blocking changed by " + Math.abs(newBlocking));
+            }
+
+        }
+    }
 
 }

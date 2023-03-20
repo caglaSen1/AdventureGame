@@ -1,18 +1,14 @@
-public class Weapon {
-    private String name;
-    private int id = 0;
+public class Weapon extends StoreItems{
     private int damage;
-    private int price;
 
     public Weapon(String name, int id, int damage, int price) {
-        setName(name);
-        setId(id);
+        super(name, id, price);
         setDamage(damage);
-        setPrice(price);
     }
 
+
     //ALL WEAPONS
-    public static Weapon[] weapons(){
+    public Weapon[] weapons(){
         Weapon[] weaponList = new Weapon[3];
         weaponList[0] = new Weapon("Gun", 1, 2, 5);
         weaponList[1] = new Weapon("Sword", 2, 3, 35);
@@ -20,33 +16,19 @@ public class Weapon {
         return weaponList;
     }
 
-    //GET WEAPON BY ID
-    public static Weapon getWeaponByID(int id){
+    @Override
+    public void printItemsInfo() {
+
+        System.out.println("************ Weapons ************");
         for(Weapon weapon : weapons()){
-            if(weapon.getId() == id){
-                return weapon;
-            }
+            System.out.println(weapon.getId() + " - " + weapon.getName() + " [Price: " + weapon.getPrice()
+                    + " | " + "Damage: " + weapon.getDamage() + "]");
         }
-        return null;
+        System.out.println("4 - Exit");
+        System.out.println("*********************************");
+
     }
 
-
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public int getDamage() {
         return damage;
@@ -56,11 +38,4 @@ public class Weapon {
         this.damage = damage;
     }
 
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
 }

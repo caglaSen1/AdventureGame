@@ -4,11 +4,13 @@ public class Player {
     private Characters character;
     private Location location;
     //private Inventory inventory;
+    public boolean noLocPickedYet = true;
     private String playerName;
     private Scanner scan = new Scanner(System.in);
 
     public Player(String playerName) {
         setPlayerName(playerName);
+
     }
 
     public void pickChar(){
@@ -52,29 +54,22 @@ public class Player {
 
         }while (!isCharPicked);
 
-        /*System.out.println("***********************************************");
-        System.out.println("Your character is: " + character.getCharName() +
-                "\t Damage" + ": " + character.getDamage() +
-                "\t Health" + ": " + character.getHealth() +
-                "\t Money" + ": " + character.getMoney());
-        System.out.println("***********************************************");
-         */
     }
 
 
     //PICK A LOCATION
     public void pickLocation(){
 
-        boolean firstLocPicked = true;
-
         //If location.onLocation = true continue or player pick a loc for first time continue.
-        while (firstLocPicked || location.onLocation()){
+        while (noLocPickedYet || location.onLocation()){
+            //PRINTING PLAYER'S INFOS
             printInfo();
+
             System.out.println("Locations:");
-            System.out.println("--------------------------------------------------------------");
+            System.out.println("-----------------------------------------------------------------------------------");
             System.out.println("1 - Safe House - There are no enemies in Safe House and you can restored your health.");
             System.out.println("2 - Store - You can buy a weapon or armor in Store.");
-            System.out.println("--------------------------------------------------------------");
+            System.out.println("-----------------------------------------------------------------------------------");
             System.out.println("Please pick a location to move: ");
 
             // If player pressed different nums then 2.. it goes to the Safe House!
@@ -87,7 +82,7 @@ public class Player {
                     break;
             }
 
-            firstLocPicked = false;
+            noLocPickedYet = false;
         }
 
         //If location.onLocation = false, it means that player died.
@@ -96,12 +91,17 @@ public class Player {
     }
 
     public void printInfo(){
-        System.out.println("***********************************************");
-        System.out.println("Your weapon: " + this.getCharacter().getInventory().getWeapon().getName() +
-                ", Your Damage" + ": " + character.getDamage() +
-                ", Health" + ": " + character.getHealth() +
-                ", Money" + ": " + character.getMoney());
-        System.out.println("***********************************************");
+        System.out.println("");
+        System.out.println("************************************************************************************************");
+        System.out.println("| " + character.getCharName() +
+                " | Weapon: " + character.getInventory().getWeapon().getName() +
+                " | Damage:" + " " + character.getDamage() +
+                " | Armor:" + " " + character.getInventory().getArmor().getName() +
+                " | Blocking:" + " " + character.getBlocking() +
+                " | Health:" + " " + character.getHealth() +
+                " | Money:" + " " + character.getMoney() + " |");
+        System.out.println("************************************************************************************************");
+        System.out.println("");
     }
 
     public Characters getCharacter() {
