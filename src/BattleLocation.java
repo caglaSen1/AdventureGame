@@ -4,6 +4,7 @@ public abstract class BattleLocation extends Location{
     private Obstacle obstacle;
     private String award;
     private int maxObstacle;
+    private Random random = new Random();
 
     public BattleLocation(Player player, String name, Obstacle obstacle, String award, int maxObstacle) {
         super(player, name);
@@ -33,7 +34,12 @@ public abstract class BattleLocation extends Location{
 
                 }else{ //IF PLAYER DIDN'T DIE
                     System.out.println("You defeated all enemies in " + this.getPlayer().getLocation().getName());
-                    System.out.println("You earned these awards: " + this.getAward() + " and " + this.getObstacle().getAward() + " money.");
+                    System.out.println("You earned these awards: " + this.getAward() + " and " + " money (" + this.getObstacle().getAward() + ")");
+
+                    //LOCATION AWARD
+                    this.getPlayer().getCharacter().getInventory().setAwards(this.getAward());
+
+                    //MONEY AWARD
                     this.getPlayer().getCharacter().setMoney(this.getPlayer().getCharacter().getMoney() + this.getObstacle().getAward());
                     return true;
                 }
@@ -54,45 +60,29 @@ public abstract class BattleLocation extends Location{
         for(int i = 1; i<= obsNum; i++){
 
             //NEW OBSTACLES HAVE FULL HEALTH
-            System.out.println("beggining. "+this.getObstacle().getBeginningHealth());
-            System.out.println("remain. "+this.getObstacle().getRemainingHealth());
             this.getObstacle().setRemainingHealth(this.getObstacle().getBeginningHealth());
 
             //STATS OF FIGHT
 
 
             while (this.getPlayer().getCharacter().getHealth() > 0 && this.getObstacle().getRemainingHealth() > 0){
+
+                System.out.println("If you choose to fight, there is a 50% chance that either you or obstacle will attack first.");
                 System.out.println("<A> attack or <R> run: ");
                 String selectFight = scan.next().toUpperCase();
 
                 //PLAYER CHOSE TO ATTACK
                 if(selectFight.equals("A")){
-                    System.out.println("You attacked!!!");
 
-                    //OBSTACLE'S HEALTH DECREASED
-                    this.obstacle.setRemainingHealth(this.obstacle.getRemainingHealth() - this.getPlayer().getCharacter().getTotalDamage());
-
-                    //INFO AFTER HIT
-                    afterHit();
-                    System.out.println("");
-
-                    //IF OBSTACLE DIDN'T DIE, IT WILL ATTACK TO PLAYER
-                    if(this.getObstacle().getRemainingHealth() > 0){
-                        System.out.println(this.obstacle.getName() + " attacked!!!");
-
-                        //OBSTACLE'S DAMAGE (PLAYER MIGHT HAVE AN ARMOR)
-                        int obstaclesDamage = this.getObstacle().getDamage() - this.getPlayer().getCharacter().getBlocking();
-                        if(obstaclesDamage < 0){
-                            obstaclesDamage = 0;
-                        }
-                        //PLAYER'S HEALTH DECREASED
-                        int newHealth = this.getPlayer().getCharacter().getHealth() - obstaclesDamage;
-                        this.getPlayer().getCharacter().setHealth(newHealth);
-
-                        //INFO AFTER HIT
-                        afterHit();
-                        System.out.println("");
+                    //WHO WILL ATTACK FIRST (if whoIsFırst = 0 player, if equals 1 obstacle attack first)
+                    int whoIsFırst = random.nextInt(2);
+                    if(whoIsFırst == 0){
+                        playerAttack();
+                    }else if(whoIsFırst == 1){
+                        obstacleAttack();
                     }
+
+
                 //PLAYER CHOSE TO RUN
                 }else{
                     return false;
@@ -102,6 +92,44 @@ public abstract class BattleLocation extends Location{
 
         //FIGHT IS OVER
         return true;
+    }
+
+    public void playerAttack() {
+
+        //IF PLAYER DIDN'T DIE, IT WILL ATTACK TO THE OBSTACLE
+        if (this.getPlayer().getCharacter().getHealth() > 0) {
+            System.out.println("You attacked!!!");
+
+            //OBSTACLE'S HEALTH DECREASED
+            this.obstacle.setRemainingHealth(this.obstacle.getRemainingHealth() - this.getPlayer().getCharacter().getTotalDamage());
+
+            //INFO AFTER HIT
+            afterHit();
+            System.out.println("");
+        }
+        obstacleAttack();
+    }
+
+
+    public void obstacleAttack(){
+        //IF OBSTACLE DIDN'T DIE, IT WILL ATTACK TO THE PLAYER
+        if(this.getObstacle().getRemainingHealth() > 0){
+            System.out.println(this.obstacle.getName() + " attacked!!!");
+
+            //OBSTACLE'S DAMAGE (PLAYER MIGHT HAVE AN ARMOR)
+            int obstaclesDamage = this.getObstacle().getDamage() - this.getPlayer().getCharacter().getBlocking();
+            if(obstaclesDamage < 0){
+                obstaclesDamage = 0;
+            }
+            //PLAYER'S HEALTH DECREASED
+            int newHealth = this.getPlayer().getCharacter().getHealth() - obstaclesDamage;
+            this.getPlayer().getCharacter().setHealth(newHealth);
+
+            //INFO AFTER HIT
+            afterHit();
+            System.out.println("");
+        }
+        playerAttack();
     }
 
     // STATS OF PLAYER IN WAR
@@ -130,7 +158,6 @@ public abstract class BattleLocation extends Location{
 
     //RANDOMLY GIVES HOW MANY OBSTACLES
     public int randomObstacleNumber(){
-        Random random = new Random();
         return random.nextInt(this.getMaxObstacle()) + 1;
     }
 

@@ -1,3 +1,5 @@
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Player {
@@ -5,8 +7,9 @@ public class Player {
     private Characters character;
     private Location location;
     public boolean noLocPickedYet = true;
-    //public boolean isInvalid = false;
+    public boolean isExit = false;
     private Scanner scan = new Scanner(System.in);
+
 
     public Player(String playerName) {
         setPlayerName(playerName);
@@ -79,7 +82,7 @@ public class Player {
             // If player pressed different nums then 2.. it goes to the Safe House!
             switch (scan.next()) {
                 case "0":
-                    location = null;
+                    isExit = true;
                     break;
                 case "2":
                     location = new Store(this);
@@ -94,12 +97,12 @@ public class Player {
                     location = new River(this);
                     break;
                 default:
-                    System.out.println("You typed an invalid value! Please try again: ");
+                    location = new SafeHouse(this);
                     break;
             }
 
             noLocPickedYet = false;
-            if(location == null){
+            if(isExit == true){
                 System.out.println("See you later, adventurer. The adventure is not over...");
                 break;
             }
@@ -110,6 +113,9 @@ public class Player {
             //If location.onLocation = false, it means that player died.
             System.out.println("GAME OVER!!!");
         }
+
+        //IF PLAYER COLLECT ALL AWARDS
+
     }
 
     public void printInfo(){

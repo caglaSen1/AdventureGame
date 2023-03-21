@@ -4,6 +4,9 @@ public abstract class Characters {
     private int health;
     private int money;
 
+    //This value won't change
+    private int beginningHealth;
+
     //POWER OF DAMAGING AND BLOCKING
     private int damage;
     private int blocking;
@@ -17,6 +20,7 @@ public abstract class Characters {
         setBlocking(blocking);
         setHealth(health);
         setMoney(money);
+        setBeginningHealth(health);
 
         //WHEN pickChar() START, PLAYER GETS AN INVENTORY
         setInventory(new Inventory());
@@ -50,6 +54,14 @@ public abstract class Characters {
 
     public int getDamage() {
         return damage;
+    }
+
+    public int getBeginningHealth() {
+        return beginningHealth;
+    }
+
+    public void setBeginningHealth(int beginningHealth) {
+        this.beginningHealth = beginningHealth;
     }
 
     public void setDamage(int damage) {
