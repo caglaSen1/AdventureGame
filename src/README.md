@@ -16,21 +16,21 @@ Collecting all items at battle locations, fighting various obstacles while doing
 
 ### CHARACTERS
 
-![character](character.png)
+![character](../Explanations/character.png)
 
 
 ### OBSTACLES
 
-![obstacles](monster.png)
+![obstacles](../Explanations/monster.png)
 
 
 ### WEAPONS
 
-![wapons](weapon.png)
+![wapons](../Explanations/weapon.png)
 
 ### ARMORS
 
-![armors](armor.png)
+![armors](../Explanations/armor.png)
 
 ## **LOCATIONS**
 
@@ -63,4 +63,4 @@ Collecting all items at battle locations, fighting various obstacles while doing
 - Armor : Light, Medium, Heavy
 
 ## Sınıf Diyagramı
-![img.png](umlDiagram.png)
+![img.png](../Explanations/umlDiagram.png)
