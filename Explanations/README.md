@@ -3,7 +3,16 @@
 A text-based adventure game made in Java.
 
 ## Purpose Of The Game
-Collecting items at battle locations, fighting various obstacles while doing so.
+Collecting all items at battle locations, fighting various obstacles while doing so.
+
+## What can the player do:
+- The player first chooses a character by looking at their attributes such as health, damage power, how much money they have and etc. 
+- Travel between locations with that character. 
+- Fights monsters where he/she goes to collect items. 
+- May die while fighting. 
+- Can go to the store and buy items for battles. 
+- Can go to the safe house and restored his health. 
+- If he/she collects all the items, wins the game.
 
 ### CHARACTERS
 
