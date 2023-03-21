@@ -1,11 +1,11 @@
 import java.util.Scanner;
 
 public class Player {
+    private String playerName;
     private Characters character;
     private Location location;
-    //private Inventory inventory;
     public boolean noLocPickedYet = true;
-    private String playerName;
+    //public boolean isInvalid = false;
     private Scanner scan = new Scanner(System.in);
 
     public Player(String playerName) {
@@ -66,14 +66,14 @@ public class Player {
             printInfo();
 
             System.out.println("Locations:");
-            System.out.println("-----------------------------------------------------------------------------------");
+            System.out.println("------------------------------------------------------------------------------------------------");
             System.out.println("1 - Safe House - There are no enemies in Safe House and you can restored your health.");
             System.out.println("2 - Store - You can buy a weapon or armor in Store.");
             System.out.println("3 - Cave - You can find food in the cave. But be careful there are zombies.");
             System.out.println("4 - Forest - You can find wood in the forest. But be careful there are vampires.");
             System.out.println("5 - River - You can find water in the river. But be careful there are bears.");
             System.out.println("0 - Quit the game");
-            System.out.println("-----------------------------------------------------------------------------------");
+            System.out.println("------------------------------------------------------------------------------------------------");
             System.out.println("Please pick a location to move: ");
 
             // If player pressed different nums then 2.. it goes to the Safe House!
@@ -97,11 +97,13 @@ public class Player {
                     System.out.println("You typed an invalid value! Please try again: ");
                     break;
             }
+
             noLocPickedYet = false;
             if(location == null){
                 System.out.println("See you later, adventurer. The adventure is not over...");
                 break;
             }
+
         }
 
         if(location != null){
@@ -115,9 +117,9 @@ public class Player {
         System.out.println("************************************************************************************************");
         System.out.println("| " + character.getCharName() +
                 " | Weapon: " + character.getInventory().getWeapon().getName() +
-                " | Damage:" + " " + character.getDamage() +
+                " | Damage:" + " " + character.getTotalDamage() +
                 " | Armor:" + " " + character.getInventory().getArmor().getName() +
-                " | Blocking:" + " " + character.getBlocking() +
+                " | Blocking:" + " " + character.getTotalBlocking() +
                 " | Health:" + " " + character.getHealth() +
                 " | Money:" + " " + character.getMoney() + " |");
         System.out.println("************************************************************************************************");

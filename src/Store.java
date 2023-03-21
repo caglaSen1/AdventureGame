@@ -118,9 +118,6 @@ public class Store extends NormalLocation{
                 //PICKED WEAPON ADDED TO THE INVENTORY OF THE PLAYER
                 this.getPlayer().getCharacter().getInventory().setWeapon(pickedWeapon);
 
-                //INCREASE DAMAGE MESSAGE
-                int newDamage = (this.getPlayer().getCharacter().getDamage() - pickedWeapon.getDamage());
-                System.out.println("Your damage changed by " + Math.abs(newDamage));
             }
 
         }
@@ -179,9 +176,6 @@ public class Store extends NormalLocation{
                 //PICKED ARMOR ADDED TO THE INVENTORY OF THE PLAYER
                 this.getPlayer().getCharacter().getInventory().setArmor(pickedArmor);
 
-                //INCREASE DAMAGE MESSAGE
-                int newBlocking = (this.getPlayer().getCharacter().getBlocking() - pickedArmor.getBlocking());
-                System.out.println("Your blocking changed by " + Math.abs(newBlocking));
             }
 
         }

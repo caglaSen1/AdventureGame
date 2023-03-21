@@ -22,6 +22,16 @@ public abstract class Characters {
         setInventory(new Inventory());
     }
 
+    //TOTAL DAMAGE POWER OF PLAYER
+    public int getTotalDamage() {
+        return damage + inventory.getWeapon().getDamage();
+    }
+
+    //TOTAL BLOCKING POWER OF PLAYER
+    public int getTotalBlocking() {
+        return blocking + inventory.getArmor().getBlocking();
+    }
+
     public int getId() {
         return id;
     }
@@ -38,9 +48,8 @@ public abstract class Characters {
         this.charName = charName;
     }
 
-    //TOTAL DAMAGE POWER OF PLAYER
     public int getDamage() {
-        return damage + inventory.getWeapon().getDamage();
+        return damage;
     }
 
     public void setDamage(int damage) {
@@ -63,9 +72,8 @@ public abstract class Characters {
         this.money = money;
     }
 
-    //TOTAL BLOCKING POWER OF PLAYER
     public int getBlocking() {
-        return blocking + inventory.getArmor().getBlocking();
+        return blocking;
     }
 
     public void setBlocking(int blocking) {

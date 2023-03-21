@@ -1,14 +1,36 @@
 public class Obstacle {
     private int id;
     private int damage;
-    private int health;
+    private int remainingHealth;
     private String name;
+    private int award;
 
-    public Obstacle(int id, String name, int damage, int health) {
+    //THIS HEALTH VALUE WON'T CHANGE
+    private int beginningHealth;
+
+    public Obstacle(int id, String name, int damage, int health, int award) {
         setId(id);
         setName(name);
         setDamage(damage);
-        setHealth(health);
+        setRemainingHealth(health);
+        setAward(award);
+        setBeginningHealth(health);
+    }
+
+    public int getBeginningHealth() {
+        return beginningHealth;
+    }
+
+    public void setBeginningHealth(int beginningHealth){
+        this.beginningHealth = beginningHealth;
+    }
+
+    public int getAward() {
+        return award;
+    }
+
+    public void setAward(int award) {
+        this.award = award;
     }
 
     public String getName() {
@@ -35,11 +57,14 @@ public class Obstacle {
         this.damage = damage;
     }
 
-    public int getHealth() {
-        return health;
+    public int getRemainingHealth() {
+        return remainingHealth;
     }
 
-    public void setHealth(int health) {
-        this.health = health;
+    public void setRemainingHealth(int remainingHealth) {
+       if(remainingHealth < 0){
+           remainingHealth = 0;
+       }
+        this.remainingHealth = remainingHealth;
     }
 }
