@@ -1,56 +1,57 @@
-# Macera Oyunu
+# Adventure Game
 
-Java ile yapılan metin tabanlı bir macera oyunu.
+A text-based adventure game made in Java.
 
-### KARAKTERLER
+## Purpose Of The Game
+Collecting items at battle locations, fighting various obstacles while doing so.
+
+### CHARACTERS
 
 ![character](character.png)
 
 
-### CANAVARLAR
+### OBSTACLES
 
-![monster](monster.png)
-
-
-### SİLAHLAR
-
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/1f20b8fb-277f-4469-81ad-c9b850b9aef7/Untitled.png)
+![obstacles](monster.png)
 
 
-### ZIRHLAR
+### WEAPONS
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/81355c02-6f1e-4b9d-ac1c-97386cbba8ca/Untitled.png)
+![wapons](weapon.png)
 
+### ARMORS
 
-## **MEKANLAR**
+![armors](armor.png)
 
-### Güvenli Ev
+## **LOCATIONS**
 
-- Özellik : Can Yenileniyor
+### Safe House
 
-### Mağara
+- Feature : Life Regenerating
 
-- Canavar : Zombi (1-3 Adet)
-- Özellik : Savaş + Ganimet
-- Eşya : Yemek (Food)
+### Cave
 
-### Orman
+- Obstacle Zombie (1-3)
+- Feature : War + Loot
+- Item : Food
 
-- Canavar : Vampir (1-3 Adet)
-- Özellik : Savaş + Ganimet
-- Eşya : Odun (Firewood)
+### Forest
 
-### Nehir
+- Obstacle : Vampire (1-3)
+- Feature : War + Loot
+- Item : Firewood
 
-- Canavar : Ayı (1-3 Adet)
-- Özellik : Savaş + Ganimet
-- Eşya : Su (Water)
+### River
 
-### Mağaza
+- Obstacle : Bear (1-3)
+- Feature : War + Loot
+- Item : Water
 
-- Özellik : Destekleyici Eşyalar Satın Almak
-- Silah : Tabanca,Kılıç,Tüfek
-- Zırh : Hafif,Orta,Ağır
+### Store
+
+- Feature : Buying Supporting Items
+- Weapon : Gun, Sword, Rifle
+- Armor : Light, Medium, Heavy
 
 ## Sınıf Diyagramı
-
+![img.png](umlDiagram.png)
