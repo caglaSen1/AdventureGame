@@ -99,5 +99,5 @@ Collecting all items at battle locations, fighting various obstacles while doing
 - Weapon : Gun, Sword, Rifle
 - Armor : Light, Medium, Heavy
 
-## Sınıf Diyagramı
-![img.png](UmlDiagram/umlDiagram.png)
+## UML Diagram
+![img.png](UmlDiagram/UmlDiagram.png)
