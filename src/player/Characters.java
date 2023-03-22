@@ -3,10 +3,10 @@ package player;
 public abstract class Characters {
     private int id;
     private String charName;
-    private int health;
     private int money;
     private Inventory inventory;
 
+    private int health;
     //This value won't change
     private int beginningHealth;
 

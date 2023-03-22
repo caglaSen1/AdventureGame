@@ -10,13 +10,15 @@ public class Weapon extends StoreItems {
 
 
     //ALL WEAPONS
-    public Weapon[] weapons(){
+    public static Weapon[] weapons(){
         Weapon[] weaponList = new Weapon[3];
         weaponList[0] = new Weapon("Gun", 1, 2, 5);
         weaponList[1] = new Weapon("Sword", 2, 3, 35);
         weaponList[2] = new Weapon("Rifle", 3, 7, 45);
         return weaponList;
     }
+
+
 
     @Override
     public void printItemsInfo() {
@@ -30,6 +32,7 @@ public class Weapon extends StoreItems {
         System.out.println("*********************************");
 
     }
+
 
 
     public int getDamage() {

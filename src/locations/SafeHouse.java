@@ -14,8 +14,6 @@ public class SafeHouse extends NormalLocation {
         System.out.println("Your health is fully restored!");
         this.getPlayer().getCharacter().setHealth(this.getPlayer().getCharacter().getBeginningHealth());
 
-
-
         return true;
     }
 }

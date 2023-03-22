@@ -1,4 +1,6 @@
 package locations;
+import items.StoreItems;
+import items.*;
 import obstacle.*;
 import player.*;
 import java.util.Random;
@@ -7,9 +9,9 @@ public abstract class BattleLocation extends Location {
     private Obstacle obstacle;
     private String award;
     private int maxObstacle;
-    private Random random = new Random();
-    //private int lengthofCollectedItemsArray = this.getPlayer().getCharacter().getInventory().getAwards().size();
-
+    public Random random = new Random();
+    private Weapon weaponAward;
+    private Armor armorAward;
     private boolean isAwardCollected;
 
 
@@ -19,19 +21,9 @@ public abstract class BattleLocation extends Location {
         setObstacle(obstacle);
         setAward(award);
         setMaxObstacle(maxObstacle);
-        //isAwardCollected = this.getPlayer().getCharacter().getInventory().awardCollected(award);
         setIsAwardCollected(this.getPlayer().getCharacter().getInventory().isAwardCollected(award));
 
-        //IF PLAYER COLLECTED THE AWARD OF A LOCATION, COULDN'T GO THAT LOC. ANYMORE!
-        /*if(this.getPlayer().getCharacter().getInventory().isThereAwardByName(award)){
-            System.out.println("You already collected the award of " + name + ".");
-            this.getPlayer().locChoosed = "";
-            this.getPlayer().pickLocation();
-
-        }*/
-
     }
-
 
     @Override
     public boolean onLocation() {
@@ -56,17 +48,22 @@ public abstract class BattleLocation extends Location {
                         return false;
 
                     }else{ //IF PLAYER DIDN'T DIE
-                        System.out.println("You defeated all enemies in " + this.getPlayer().getLocation().getName());
-                        System.out.println("You earned these awards: " + this.getAward() + " and " + " money (" + this.getObstacle().getGold() + ")");
 
+                        //IF PLAYER IN MINE
+                        if(this.getPlayer().getLocation().getName().equals("Mine")){
+                            mineAward();
+                        }else { //IF NOT IN MINE
+                            System.out.println("You defeated all enemies in " + this.getPlayer().getLocation().getName());
+                            System.out.println("You earned these awards: " + this.getAward() + " and " + " money (" + this.getObstacle().getGold() + ")");
 
-                        //LOCATION AWARD
-                        this.getPlayer().getCharacter().getInventory().setAwards(this.getAward());
-                        this.getPlayer().printHowManyCollectInfo();
+                            //LOCATION AWARD
+                            this.getPlayer().getCharacter().getInventory().setAwards(this.getAward());
+                            this.getPlayer().printHowManyCollectInfo();
 
-                        //MONEY AWARD
-                        this.getPlayer().getCharacter().setMoney(this.getPlayer().getCharacter().getMoney() + this.getObstacle().getGold());
-                        return true;
+                            //MONEY AWARD
+                            this.getPlayer().getCharacter().setMoney(this.getPlayer().getCharacter().getMoney() + this.getObstacle().getGold());
+                            return true;
+                        }
                     }
 
                     //IF "fight(obsNum) == false" MEANS PLAYER RUN FROM FIGHT
@@ -89,8 +86,6 @@ public abstract class BattleLocation extends Location {
 
             //NEW OBSTACLES HAVE FULL HEALTH
             this.getObstacle().setRemainingHealth(this.getObstacle().getBeginningHealth());
-
-            //STATS OF FIGHT
 
 
             while (this.getPlayer().getCharacter().getHealth() > 0 && this.getObstacle().getRemainingHealth() > 0){
@@ -187,16 +182,78 @@ public abstract class BattleLocation extends Location {
 
     }
 
-    //public void afterHit(){
-        //System.out.println("Your health: " + this.getPlayer().getCharacter().getHealth());
-        //System.out.println(this.getObstacle().getName() + "'s health: " + this.getObstacle().getRemainingHealth());
+    public void mineAward(){
+        System.out.println("You defeated all enemies in " + this.getPlayer().getLocation().getName());
+        int categoryChance  = random.nextInt(1,100);
+        int weaponTypeChance = random.nextInt(1,100);
+        int armorTypeChance = random.nextInt(1,100);
+        int moneyAmountChance = random.nextInt(1,100);
 
-    //}
+
+        if(1<=categoryChance && categoryChance<=24){
+            //Money(25%)
+            if(1<=moneyAmountChance && moneyAmountChance<=19){
+                //10(20%)
+                System.out.println("You have won 10 coin!");
+                this.getPlayer().getCharacter().setMoney(this.getPlayer().getCharacter().getMoney() + 10);
+            } else if (20<=moneyAmountChance && moneyAmountChance<=49) {
+                //5(30%)
+                System.out.println("You have won 5 coin!");
+                this.getPlayer().getCharacter().setMoney(this.getPlayer().getCharacter().getMoney() + 5);
+            }else{
+                //1(50%)
+                System.out.println("You have won 1 coin!");
+                this.getPlayer().getCharacter().setMoney(this.getPlayer().getCharacter().getMoney() + 1);
+            }
+
+        } else if (25<=categoryChance && categoryChance<=39) {
+            //Weapon(15%)
+            if(1<=weaponTypeChance && weaponTypeChance<=19){
+                //Rifle(20%)
+                System.out.println("You have won a rifle!");
+                weaponAward = (Weapon) StoreItems.getItemByName("Rifle", Weapon.weapons());
+                this.getPlayer().getCharacter().getInventory().setWeapon(weaponAward);
+            }else if(20<=weaponTypeChance && weaponTypeChance<=49){
+                //Sword(30%)
+                System.out.println("You have won a sword!");
+                weaponAward = (Weapon) StoreItems.getItemByName("Sword", Weapon.weapons());
+                this.getPlayer().getCharacter().getInventory().setWeapon(weaponAward);
+            }else{
+                //Gun(50%)
+                System.out.println("You have won a gun!");
+                weaponAward = (Weapon) StoreItems.getItemByName("Gun", Weapon.weapons());
+                this.getPlayer().getCharacter().getInventory().setWeapon(weaponAward);
+            }
+        } else if (40<=categoryChance && categoryChance<=54) {
+            //Armor(15%)
+            if(1<=armorTypeChance && armorTypeChance<=19){
+                System.out.println("You have won a heavy armor!");
+                armorAward = (Armor) StoreItems.getItemByName("Heavy armor", Armor.armors());
+                this.getPlayer().getCharacter().getInventory().setArmor(armorAward);
+                //Heavy armor(20%)
+            }else if(20<=armorTypeChance && armorTypeChance<=49){
+                //Medium armor(30%)
+                System.out.println("You have won a medium armor!");
+                armorAward = (Armor) StoreItems.getItemByName("Heavy armor", Armor.armors());
+                this.getPlayer().getCharacter().getInventory().setArmor(armorAward);
+            }else{
+                //Light armor(50%)
+                System.out.println("You have won a light armor!");
+                armorAward = (Armor) StoreItems.getItemByName("Heavy armor", Armor.armors());
+                this.getPlayer().getCharacter().getInventory().setArmor(armorAward);
+            }
+
+        }else {
+            //Nothing(45%)
+            System.out.println("You couldn't get an award from Mine :(");
+        }
+
+    }
 
     //RANDOMLY GIVES HOW MANY OBSTACLES
     public int randomObstacleNumber(){
         return random.nextInt(this.getMaxObstacle()) + 1;
-    }
+    };
 
     public boolean getIsAwardCollected() {
         return isAwardCollected;
@@ -227,7 +284,14 @@ public abstract class BattleLocation extends Location {
     }
 
     public void setAward(String award) {
-        this.award = award;
+        if(!award.equals("random")){
+            this.award = award;
+
+        }else{
+            this.award = null;
+        }
+
     }
+
 
 }

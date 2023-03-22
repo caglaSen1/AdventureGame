@@ -1,5 +1,4 @@
 package player;
-
 import items.*;
 import java.util.ArrayList;
 
@@ -20,6 +19,7 @@ public class Inventory {
             if(award.equals(awardOfLoc)){
                 return true;
             }
+
         }return false;
     }
 

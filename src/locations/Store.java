@@ -3,10 +3,7 @@ import player.*;
 import items.*;
 
 public class Store extends NormalLocation {
-    //public String pickedToolID;
-    //public int pickedToolID;
     public int pickedToolID;
-    //public int pickedToolID;
 
     //Player's weapon
     public Weapon weapon = this.getPlayer().getCharacter().getInventory().getWeapon();

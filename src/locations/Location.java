@@ -10,7 +10,6 @@ public abstract class Location {
     //There are 3 location to fight
     private final int howManyBattleLoc = 3;
     public static Scanner scan = new Scanner(System.in);
-    //public Items.Weapon getPlayersWeapon = this.getPlayer().getCharacter().getInventory().getWeapon();
 
     public Location(Player player, String name, int id) {
         setPlayer(player);

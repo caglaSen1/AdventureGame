@@ -71,14 +71,15 @@ public class Player {
             printInfo();
 
             System.out.println("Locations:");
-            System.out.println("------------------------------------------------------------------------------------------------");
-            System.out.println("1 - Safe House - There are no enemies in Safe House and you can restored your health.");
+            System.out.println("--------------------------------------------------------------------------------------------------------------------------------------------");
+            System.out.println("1 - Safe House - There are no enemies in Safe House and you can restored your health. When you've collected all the items, bring them here.");
             System.out.println("2 - Store - You can buy a weapon or armor in Store.");
             System.out.println("3 - Cave - You can find food in the cave. But be careful there are zombies.");
             System.out.println("4 - Forest - You can find wood in the forest. But be careful there are vampires.");
             System.out.println("5 - River - You can find water in the river. But be careful there are bears.");
+            System.out.println("6 - Mine - You can win an award in here randomly(Weapon, armor, money or nothing). But careful there are snakes.");
             System.out.println("0 - Quit the game");
-            System.out.println("------------------------------------------------------------------------------------------------");
+            System.out.println("--------------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println("Please pick a location to move: ");
 
             // If player pressed different nums then 2.. it goes to the Safe House!
@@ -98,6 +99,9 @@ public class Player {
                     break;
                 case "5":
                     location = new River(this);
+                    break;
+                case "6":
+                    location = new Mine(this);
                     break;
                 default:
                     location = new SafeHouse(this);

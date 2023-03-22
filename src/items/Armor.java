@@ -9,13 +9,15 @@ public class Armor extends StoreItems {
     }
 
     //ALL ARMORS
-    public Armor[] armors(){
+    public static Armor[] armors(){
         Armor[] armorList = new Armor[3];
         armorList[0] = new Armor("Light Armor", 1, 1, 15);
         armorList[1] = new Armor("Medium Armor", 2, 3, 25);
         armorList[2] = new Armor("Heavy Armor", 3, 5, 40);
         return armorList;
     }
+
+
 
     @Override
     public void printItemsInfo() {
@@ -29,6 +31,8 @@ public class Armor extends StoreItems {
         System.out.println("*********************************");
 
     }
+
+
 
 
     public int getBlocking() {
